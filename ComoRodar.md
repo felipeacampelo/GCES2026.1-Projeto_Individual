@@ -54,6 +54,34 @@ Para subir a Aplicação Base em um container de desenvolvimento com hot-reload 
 
 O container executa `npm run dev` com `nodemon`. Mudanças em arquivos do servidor reiniciam automaticamente o processo. Mudanças no frontend estático em `game/` ficam disponíveis ao recarregar a página no navegador.
 
+### Execução com Docker Compose e Postgres
+
+Para subir a aplicação e o banco Postgres juntos:
+
+```bash
+docker compose up --build
+```
+
+Depois abra:
+
+- `http://localhost:55555`
+
+O backend passa a persistir sessões de jogo no Postgres quando o `DATABASE_URL` estiver configurado. Para inspecionar o histórico persistido:
+
+- `http://localhost:55555/api/game-sessions`
+
+Se a porta `55555` já estiver ocupada na sua máquina:
+
+```bash
+APP_PORT=55556 docker compose up --build
+```
+
+Para parar o ambiente:
+
+```bash
+docker compose down
+```
+
 ---
 
 # Configuração Técnica

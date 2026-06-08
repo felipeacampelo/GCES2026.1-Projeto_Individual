@@ -54,7 +54,29 @@ docker run --rm -it \
   -p 55555:55555 \
   -v "$(pwd)/server:/app/server" \
   -v "$(pwd)/game:/app/game" \
+  -v mkjs_node_modules:/app/server/node_modules \
   mkjs-dev
 ```
 
 No modo containerizado, o servidor roda com `nodemon`, reiniciando automaticamente quando arquivos do backend forem alterados. Arquivos estáticos do frontend ficam disponíveis ao recarregar a página.
+
+### Ambiente com Docker Compose e Postgres
+
+```bash
+docker compose up --build
+```
+
+Esse fluxo sobe:
+
+- a aplicação Node.js em modo de desenvolvimento
+- um banco Postgres para persistência simples das sessões de jogo
+
+O histórico persistido pode ser consultado em:
+
+- `http://localhost:55555/api/game-sessions`
+
+Se a porta `55555` já estiver em uso no host, você pode sobrescrevê-la:
+
+```bash
+APP_PORT=55556 docker compose up --build
+```

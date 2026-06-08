@@ -6,10 +6,11 @@ var Messages = {
 };
 
 
-function Game(id, gameCollection) {
+function Game(id, gameCollection, callbacks) {
   this._id = id;
   this._gameCollection = gameCollection;
   this._players = [];
+  this._callbacks = callbacks || {};
 }
 
 Game.prototype.getId = function () {
@@ -24,6 +25,9 @@ Game.prototype.addPlayer = function (p) {
   if (this._players.length > 1) {
     this._addHandlers();
     this._players[0].emit(Messages.PLAYER_CONNECTED, 0);
+    if (typeof this._callbacks.onGameJoined === 'function') {
+      this._callbacks.onGameJoined(this._id);
+    }
   }
   return true;
 };
@@ -67,11 +71,15 @@ Game.prototype.endGame = function (playerOut) {
   if (opponent && opponent.connected) {
     opponent.disconnect(true);
   }
+  if (typeof this._callbacks.onGameRemoved === 'function') {
+    this._callbacks.onGameRemoved(this._id);
+  }
   this._gameCollection.removeGame(this._id);
 };
 
-function GameCollection() {
+function GameCollection(callbacks) {
   this._games = {};
+  this._callbacks = callbacks || {};
 }
 
 GameCollection.prototype.getGame = function (game) {
@@ -82,8 +90,11 @@ GameCollection.prototype.createGame = function (id) {
   if (this._games[id]) {
     return false;
   }
-  var game = new Game(id, this);
+  var game = new Game(id, this, this._callbacks);
   this._games[id] = game;
+  if (typeof this._callbacks.onGameCreated === 'function') {
+    this._callbacks.onGameCreated(id);
+  }
   return true;
 };
 

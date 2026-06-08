@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run dev
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://mkjs:mkjs@db:5432/mkjs
+      PORT: 55555
+    ports:
+      - "${APP_PORT:-55555}:55555"
+    volumes:
+      - ./server:/app/server
+      - ./game:/app/game
+      - server_node_modules:/app/server/node_modules
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: mkjs
+      POSTGRES_PASSWORD: mkjs
+      POSTGRES_USER: mkjs
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mkjs -d mkjs"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  server_node_modules:
