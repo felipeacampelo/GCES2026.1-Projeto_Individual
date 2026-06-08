@@ -61,6 +61,7 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Objetivo: containerização de desenvolvimento com hot-reload.
 - Pré-condição herdada da fundação: Aplicação Base executando em ambiente atual com fluxo local reproduzível.
 - Próximo artefato esperado: `Dockerfile` de desenvolvimento e instruções de uso.
+- Status após esta etapa: `Dockerfile` de desenvolvimento implementado; falta validar e expandir com Compose na Fase 2.
 
 ### Fase 2
 

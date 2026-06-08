@@ -34,6 +34,25 @@ Se a porta `55555` já estiver em uso no ambiente local, você pode sobrescrevê
 PORT=55556 node server.js
 ```
 
+### Execução em Desenvolvimento com Docker
+
+Para subir a Aplicação Base em um container de desenvolvimento com hot-reload do servidor:
+
+1. Na raiz do projeto, gere a imagem:
+    ```bash
+    docker build -t mkjs-dev .
+    ```
+2. Inicie o container montando o código-fonte:
+    ```bash
+    docker run --rm -it \
+      -p 55555:55555 \
+      -v "$(pwd)/server:/app/server" \
+      -v "$(pwd)/game:/app/game" \
+      mkjs-dev
+    ```
+
+O container executa `npm run dev` com `nodemon`. Mudanças em arquivos do servidor reiniciam automaticamente o processo. Mudanças no frontend estático em `game/` ficam disponíveis ao recarregar a página no navegador.
+
 ---
 
 # Configuração Técnica

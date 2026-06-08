@@ -31,3 +31,30 @@ O trabalho está dividido em 10 etapas, cada uma valendo **1,0 ponto**. O foco �
 *   **Documentação:** O `README.md` final deve conter o passo a passo de como subir o ambiente de desenvolvimento e como visualizar o ambiente de produção.
 
 Boa sorte!
+
+## Estado Atual da Implementação
+
+O projeto já possui uma **fundação transversal** concluída para executar em ambiente Node.js atual e um **Dockerfile de desenvolvimento** para a Fase 1.
+
+### Ambiente de Desenvolvimento
+
+Execução local:
+
+```bash
+cd server
+npm install
+node server.js
+```
+
+Execução com Docker e hot-reload:
+
+```bash
+docker build -t mkjs-dev .
+docker run --rm -it \
+  -p 55555:55555 \
+  -v "$(pwd)/server:/app/server" \
+  -v "$(pwd)/game:/app/game" \
+  mkjs-dev
+```
+
+No modo containerizado, o servidor roda com `nodemon`, reiniciando automaticamente quando arquivos do backend forem alterados. Arquivos estáticos do frontend ficam disponíveis ao recarregar a página.
