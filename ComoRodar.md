@@ -28,6 +28,12 @@ Para o jogo em rede, você precisa iniciar o servidor:
 
 O servidor será iniciado na porta `55555`. Abra o navegador em `http://localhost:55555`. Ambos os jogadores devem inserir o mesmo nome de jogo para se conectarem.
 
+Se a porta `55555` já estiver em uso no ambiente local, você pode sobrescrevê-la temporariamente:
+
+```bash
+PORT=55556 node server.js
+```
+
 ---
 
 # Configuração Técnica

@@ -64,7 +64,9 @@ Game.prototype.endGame = function (playerOut) {
   var opponent = +!playerOut;
   opponent = this._players[opponent];
   this._players = [];
-  opponent.disconnect();
+  if (opponent && opponent.connected) {
+    opponent.disconnect(true);
+  }
   this._gameCollection.removeGame(this._id);
 };
 
@@ -77,7 +79,7 @@ GameCollection.prototype.getGame = function (game) {
 };
 
 GameCollection.prototype.createGame = function (id) {
-  if (this._games[game]) {
+  if (this._games[id]) {
     return false;
   }
   var game = new Game(id, this);
