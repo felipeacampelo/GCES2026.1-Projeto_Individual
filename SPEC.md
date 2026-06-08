@@ -75,6 +75,7 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Objetivo: pipeline de build e lint para front e back.
 - Pré-condição herdada da fundação: execução local previsível e dependências saneadas.
 - Próximo artefato esperado: workflow GitHub Actions para build e lint.
+- Status após esta etapa: workflow de CI configurado com `npm ci`, `npm run lint` e `npm run build`.
 
 ### Fase 4
 

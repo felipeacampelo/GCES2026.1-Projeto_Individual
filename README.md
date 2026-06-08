@@ -80,3 +80,12 @@ Se a porta `55555` já estiver em uso no host, você pode sobrescrevê-la:
 ```bash
 APP_PORT=55556 docker compose up --build
 ```
+
+### CI de Build e Lint
+
+O projeto também possui um workflow de CI no GitHub Actions para a Fase 3.
+
+Validações executadas:
+
+- `npm run lint` no backend e nos arquivos JavaScript do frontend
+- `npm run build` como checagem sintática e estrutural de frontend e backend

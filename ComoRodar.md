@@ -82,6 +82,17 @@ Para parar o ambiente:
 docker compose down
 ```
 
+### Verificação Local de Build e Lint
+
+Para executar localmente as verificações da Fase 3:
+
+```bash
+cd server
+npm install
+npm run lint
+npm run build
+```
+
 ---
 
 # Configuração Técnica
