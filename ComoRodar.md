@@ -48,6 +48,7 @@ Para subir a Aplicação Base em um container de desenvolvimento com hot-reload 
       -p 55555:55555 \
       -v "$(pwd)/server:/app/server" \
       -v "$(pwd)/game:/app/game" \
+      -v mkjs_node_modules:/app/server/node_modules \
       mkjs-dev
     ```
 
