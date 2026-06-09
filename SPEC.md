@@ -99,3 +99,10 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Pré-condição herdada das fases anteriores: pipeline com lint, build e testes unitários já ativo.
 - Próximo artefato esperado: suíte de fuzzing integrada ao CI.
 - Status após esta etapa: fuzzing automatizado cobrindo validação de nomes de jogo e acesso seguro à coleção de partidas.
+
+### Fase 6
+
+- Objetivo: integrar segurança de código e dependências ao pipeline.
+- Pré-condição herdada das fases anteriores: CI já executando build, lint, testes unitários e fuzzing.
+- Próximo artefato esperado: SCA com `npm audit` e SAST com CodeQL.
+- Status após esta etapa: workflow principal executa auditoria de dependências e workflow dedicado executa análise estática de segurança.

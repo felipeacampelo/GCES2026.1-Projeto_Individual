@@ -113,6 +113,18 @@ npm install
 npm run test:fuzz
 ```
 
+### Verificação de Segurança de Dependências
+
+Para executar localmente a verificação SCA da Fase 6:
+
+```bash
+cd server
+npm install
+npm run sca
+```
+
+A análise SAST desta fase roda no GitHub Actions por meio do workflow `CodeQL`.
+
 ---
 
 # Configuração Técnica

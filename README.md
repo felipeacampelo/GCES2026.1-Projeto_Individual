@@ -91,3 +91,5 @@ Validações executadas:
 - `npm run build` como checagem sintática e estrutural de frontend e backend
 - `npm test` para testes unitários funcionais do backend
 - `npm run test:fuzz` para fuzzing das entradas do backend
+- `npm run sca` para auditoria de dependências com `npm audit`
+- workflow `CodeQL` para análise estática de segurança no GitHub
