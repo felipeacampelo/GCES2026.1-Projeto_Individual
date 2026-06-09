@@ -103,6 +103,16 @@ npm install
 npm test
 ```
 
+### Testes de Fuzzing do Backend
+
+Para executar os testes de fuzzing da Fase 5:
+
+```bash
+cd server
+npm install
+npm run test:fuzz
+```
+
 ---
 
 # Configuração Técnica

@@ -92,3 +92,10 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Fase 8: containerização de produção com multi-stage build e Nginx.
 - Fase 9: manifestos Kubernetes e, opcionalmente, Terraform.
 - Fase 10: deploy contínuo, publicação de imagens, HTTPS e segurança de rede.
+
+### Fase 5
+
+- Objetivo: validar a resiliência do backend contra entradas inesperadas.
+- Pré-condição herdada das fases anteriores: pipeline com lint, build e testes unitários já ativo.
+- Próximo artefato esperado: suíte de fuzzing integrada ao CI.
+- Status após esta etapa: fuzzing automatizado cobrindo validação de nomes de jogo e acesso seguro à coleção de partidas.

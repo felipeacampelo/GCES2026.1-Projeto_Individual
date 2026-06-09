@@ -24,3 +24,11 @@ test('GET /api/game-sessions retorna sessões do backend', async function () {
     sessions: []
   });
 });
+
+test('validateGameName aceita nomes válidos e rejeita payloads inválidos', function () {
+  assert.equal(serverModule.validateGameName('arena-1'), true);
+  assert.equal(serverModule.validateGameName('   '), false);
+  assert.equal(serverModule.validateGameName(''), false);
+  assert.equal(serverModule.validateGameName(123), false);
+  assert.equal(serverModule.validateGameName({ game: 'arena-1' }), false);
+});

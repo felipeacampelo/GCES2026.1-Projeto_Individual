@@ -13,12 +13,19 @@ var Responses = {
     SUCCESS: 0,
     GAME_EXISTS: 1,
     GAME_NOT_EXISTS: 2,
-    GAME_FULL: 3
+    GAME_FULL: 3,
+    INVALID_PAYLOAD: 4
   },
   Requests = {
     CREATE_GAME: 'create-game',
     JOIN_GAME: 'join-game'
   };
+
+function validateGameName(gameName) {
+  return typeof gameName === 'string' &&
+    gameName.trim().length > 0 &&
+    gameName.length <= 64;
+}
 
 function createGames(persistenceLayer) {
   return new GameCollection({
@@ -59,6 +66,10 @@ function createApp(persistenceLayer) {
 function attachRealtime(io, games) {
   io.on('connection', function (socket) {
     socket.on(Requests.CREATE_GAME, function (gameName) {
+      if (!validateGameName(gameName)) {
+        socket.emit('response', Responses.INVALID_PAYLOAD);
+        return;
+      }
       if (games.createGame(gameName)) {
         games.getGame(gameName).addPlayer(socket);
         socket.emit('response', Responses.SUCCESS);
@@ -67,6 +78,10 @@ function attachRealtime(io, games) {
       }
     });
     socket.on(Requests.JOIN_GAME, function (gameName) {
+      if (!validateGameName(gameName)) {
+        socket.emit('response', Responses.INVALID_PAYLOAD);
+        return;
+      }
       var game = games.getGame(gameName);
       if (!game) {
         socket.emit('response', Responses.GAME_NOT_EXISTS);
@@ -115,6 +130,7 @@ module.exports = {
   createApp: createApp,
   createGames: createGames,
   createServer: createServer,
+  validateGameName: validateGameName,
   startServer: startServer
 };
 

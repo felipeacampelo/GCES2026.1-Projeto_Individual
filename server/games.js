@@ -82,11 +82,21 @@ function GameCollection(callbacks) {
   this._callbacks = callbacks || {};
 }
 
+GameCollection.prototype.isValidGameId = function (id) {
+  return typeof id === 'string' && id.trim().length > 0 && id.length <= 64;
+};
+
 GameCollection.prototype.getGame = function (game) {
+  if (!this.isValidGameId(game)) {
+    return undefined;
+  }
   return this._games[game];
 };
 
 GameCollection.prototype.createGame = function (id) {
+  if (!this.isValidGameId(id)) {
+    return false;
+  }
   if (this._games[id]) {
     return false;
   }
