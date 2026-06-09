@@ -125,6 +125,26 @@ npm run sca
 
 A análise SAST desta fase roda no GitHub Actions por meio do workflow `CodeQL`.
 
+### Cobertura e SonarCloud
+
+Para gerar a cobertura local usada pela Fase 7:
+
+```bash
+cd server
+npm install
+npm run test:coverage
+```
+
+O relatório LCOV será gerado em:
+
+- `server/coverage/lcov.info`
+
+Para ativar a análise no SonarCloud no GitHub, configure no repositório:
+
+- secret `SONAR_TOKEN`
+- variable `SONAR_PROJECT_KEY`
+- variable `SONAR_ORGANIZATION`
+
 ---
 
 # Configuração Técnica

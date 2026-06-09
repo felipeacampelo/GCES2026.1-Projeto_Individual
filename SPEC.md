@@ -106,3 +106,10 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Pré-condição herdada das fases anteriores: CI já executando build, lint, testes unitários e fuzzing.
 - Próximo artefato esperado: SCA com `npm audit` e SAST com CodeQL.
 - Status após esta etapa: workflow principal executa auditoria de dependências e workflow dedicado executa análise estática de segurança.
+
+### Fase 7
+
+- Objetivo: integrar qualidade de código e cobertura mínima com SonarCloud.
+- Pré-condição herdada das fases anteriores: CI com build, lint, testes, fuzzing e segurança já ativo.
+- Próximo artefato esperado: workflow dedicado do SonarCloud, relatório LCOV e parâmetros do projeto.
+- Status após esta etapa: cobertura LCOV gerada no backend e análise SonarCloud pronta para ser habilitada com `SONAR_TOKEN`, `SONAR_PROJECT_KEY` e `SONAR_ORGANIZATION`.

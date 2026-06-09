@@ -93,3 +93,5 @@ Validações executadas:
 - `npm run test:fuzz` para fuzzing das entradas do backend
 - `npm run sca` para auditoria de dependências com `npm audit`
 - workflow `CodeQL` para análise estática de segurança no GitHub
+- `npm run test:coverage` para gerar cobertura consumida pelo SonarCloud
+- workflow `SonarCloud` para análise de qualidade e cobertura no GitHub
