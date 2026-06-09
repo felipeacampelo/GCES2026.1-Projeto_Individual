@@ -11,7 +11,8 @@
         "dev": "nodemon --legacy-watch server.js",
         "lint": "npm run lint:server && npm run lint:client",
         "lint:client": "cd .. && ./server/node_modules/.bin/eslint game/src/*.js --config server/eslint.config.js",
-        "lint:server": "eslint server.js games.js db.js scripts/check-frontend.js eslint.config.js"
+        "lint:server": "eslint server.js games.js db.js scripts/check-frontend.js eslint.config.js",
+        "test": "node --test"
     },
     "dependencies": {
         "express": "^4.22.2",
@@ -20,7 +21,8 @@
     },
     "devDependencies": {
         "eslint": "^9.29.0",
-        "nodemon": "^3.1.10"
+        "nodemon": "^3.1.10",
+        "supertest": "^7.1.1"
     },
     "overrides": {
         "path-to-regexp": "0.1.13"

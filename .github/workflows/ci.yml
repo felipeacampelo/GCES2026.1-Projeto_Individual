@@ -32,3 +32,7 @@ jobs:
       - name: Build checks for frontend and backend
         working-directory: server
         run: npm run build
+
+      - name: Run unit tests
+        working-directory: server
+        run: npm test

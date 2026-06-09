@@ -93,6 +93,16 @@ npm run lint
 npm run build
 ```
 
+### Testes Unitários do Backend
+
+Para executar os testes unitários locais da Fase 4:
+
+```bash
+cd server
+npm install
+npm test
+```
+
 ---
 
 # Configuração Técnica

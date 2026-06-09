@@ -89,3 +89,4 @@ Validações executadas:
 
 - `npm run lint` no backend e nos arquivos JavaScript do frontend
 - `npm run build` como checagem sintática e estrutural de frontend e backend
+- `npm test` para testes unitários funcionais do backend

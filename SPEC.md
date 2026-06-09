@@ -82,6 +82,7 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Objetivo: testes unitários funcionais com evidência de quebra e correção.
 - Pré-condição herdada da fundação: base executável e pipeline inicial preparados.
 - Próximo artefato esperado: suíte inicial de testes e histórico de commits de falha/correção.
+- Status após esta etapa: suíte de testes do backend integrada ao CI, com histórico explícito de falha e correção no pipeline.
 
 ## Visão Resumida das Fases 5 a 10
 
