@@ -113,3 +113,10 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Pré-condição herdada das fases anteriores: CI com build, lint, testes, fuzzing e segurança já ativo.
 - Próximo artefato esperado: workflow dedicado do SonarCloud, relatório LCOV e parâmetros do projeto.
 - Status após esta etapa: cobertura LCOV gerada no backend e análise SonarCloud pronta para ser habilitada com `SONAR_TOKEN`, `SONAR_PROJECT_KEY` e `SONAR_ORGANIZATION`.
+
+### Fase 8
+
+- Objetivo: empacotar a aplicação para produção com imagens Alpine otimizadas, multi-stage build e Nginx servindo o frontend.
+- Pré-condição herdada das fases anteriores: aplicação estável, validada em CI e com dependências saneadas.
+- Próximo artefato esperado: `Dockerfile.prod`, `Dockerfile.nginx`, `docker-compose.prod.yml` e configuração de proxy reverso do Nginx.
+- Status após esta etapa: ambiente de produção local sobe com backend isolado, frontend servido por Nginx e tráfego dinâmico encaminhado para `/api` e `/socket.io`.

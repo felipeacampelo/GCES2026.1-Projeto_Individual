@@ -95,3 +95,27 @@ Validações executadas:
 - workflow `CodeQL` para análise estática de segurança no GitHub
 - `npm run test:coverage` para gerar cobertura consumida pelo SonarCloud
 - workflow `SonarCloud` para análise de qualidade e cobertura no GitHub
+
+### Ambiente de Produção
+
+O projeto também possui um empacotamento de produção para a Fase 8 com:
+
+- backend Node.js em imagem Alpine com multi-stage build
+- Nginx em Alpine servindo os arquivos estáticos do frontend
+- proxy do Nginx para `/api` e `/socket.io`
+
+Para subir o ambiente de produção localmente:
+
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+A aplicação ficará disponível em:
+
+- `http://localhost:8080`
+
+Se a porta `8080` estiver ocupada no host:
+
+```bash
+PROD_PORT=8081 docker compose -f docker-compose.prod.yml up --build
+```

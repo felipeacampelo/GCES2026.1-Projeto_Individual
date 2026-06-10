@@ -145,6 +145,40 @@ Para ativar a análise no SonarCloud no GitHub, configure no repositório:
 - variable `SONAR_PROJECT_KEY`
 - variable `SONAR_ORGANIZATION`
 
+### Produção com Nginx
+
+Para validar a Fase 8 localmente:
+
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+Esse fluxo sobe:
+
+- backend Node.js em modo de produção
+- Nginx servindo os arquivos estáticos do frontend
+- Postgres interno para persistência simples
+
+Endpoint principal:
+
+- `http://localhost:8080`
+
+Endpoint de API através do Nginx:
+
+- `http://localhost:8080/api/game-sessions`
+
+Se a porta `8080` já estiver ocupada:
+
+```bash
+PROD_PORT=8081 docker compose -f docker-compose.prod.yml up --build
+```
+
+Para encerrar:
+
+```bash
+docker compose -f docker-compose.prod.yml down
+```
+
 ---
 
 # Configuração Técnica

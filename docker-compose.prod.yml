@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://mkjs:mkjs@db:5432/mkjs
+      NODE_ENV: production
+      PORT: 55555
+    expose:
+      - "55555"
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    depends_on:
+      - app
+    ports:
+      - "${PROD_PORT:-8080}:80"
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: mkjs
+      POSTGRES_PASSWORD: mkjs
+      POSTGRES_USER: mkjs
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mkjs -d mkjs"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    expose:
+      - "5432"
+    restart: unless-stopped
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_prod_data:

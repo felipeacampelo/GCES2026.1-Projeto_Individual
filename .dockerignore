@@ -1,4 +1,6 @@
 .git
 .DS_Store
 server/node_modules
+server/coverage
 node_modules
+.github
