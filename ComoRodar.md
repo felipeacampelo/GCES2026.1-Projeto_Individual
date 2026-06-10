@@ -179,6 +179,43 @@ Para encerrar:
 docker compose -f docker-compose.prod.yml down
 ```
 
+### Kubernetes local
+
+Os manifestos da Fase 9 ficam em:
+
+- `k8s/base`
+- `k8s/overlays/local`
+
+Para validar a renderização dos manifestos sem cluster ativo:
+
+```bash
+kubectl kustomize k8s/overlays/local
+```
+
+Para testar em um cluster local, primeiro gere ou carregue as imagens usadas no overlay:
+
+```bash
+docker build -f Dockerfile.prod -t projetoindividual-app:latest .
+docker build -f Dockerfile.nginx -t projetoindividual-nginx:latest .
+```
+
+Depois aplique os manifestos:
+
+```bash
+kubectl apply -k k8s/overlays/local
+kubectl port-forward -n mkjs service/mkjs-nginx 8080:80
+```
+
+Com isso, a aplicação ficará disponível em:
+
+- `http://localhost:8080`
+
+Para remover os recursos:
+
+```bash
+kubectl delete -k k8s/overlays/local
+```
+
 ---
 
 # Configuração Técnica

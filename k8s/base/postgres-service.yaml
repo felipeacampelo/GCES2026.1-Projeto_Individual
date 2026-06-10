@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mkjs-postgres
+spec:
+  selector:
+    app: mkjs-postgres
+  ports:
+    - port: 5432
+      targetPort: postgres

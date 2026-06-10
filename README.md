@@ -119,3 +119,22 @@ Se a porta `8080` estiver ocupada no host:
 ```bash
 PROD_PORT=8081 docker compose -f docker-compose.prod.yml up --build
 ```
+
+### Kubernetes
+
+O projeto também possui manifestos de Kubernetes para a Fase 9, organizados com `kustomize` em:
+
+- `k8s/base`
+- `k8s/overlays/local`
+
+Os manifestos contemplam:
+
+- `Deployment` e `Service` para backend, Nginx e Postgres
+- `PersistentVolumeClaim` para persistência do Postgres
+- `ConfigMap` para o proxy reverso do Nginx
+- `Secret` para variáveis sensíveis mínimas da aplicação e do banco
+
+Para ambiente local, o overlay `k8s/overlays/local` usa imagens locais:
+
+- `projetoindividual-app:latest`
+- `projetoindividual-nginx:latest`

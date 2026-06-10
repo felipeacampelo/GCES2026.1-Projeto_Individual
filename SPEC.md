@@ -120,3 +120,10 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Pré-condição herdada das fases anteriores: aplicação estável, validada em CI e com dependências saneadas.
 - Próximo artefato esperado: `Dockerfile.prod`, `Dockerfile.nginx`, `docker-compose.prod.yml` e configuração de proxy reverso do Nginx.
 - Status após esta etapa: ambiente de produção local sobe com backend isolado, frontend servido por Nginx e tráfego dinâmico encaminhado para `/api` e `/socket.io`.
+
+### Fase 9
+
+- Objetivo: orquestrar a aplicação em Kubernetes com manifestos versionados para backend, frontend reverso e banco.
+- Pré-condição herdada das fases anteriores: imagens e topologia de produção já definidas.
+- Próximo artefato esperado: árvore `k8s/` com `Deployment`, `Service`, `PersistentVolumeClaim`, `ConfigMap`, `Secret` e `kustomization`.
+- Status após esta etapa: ambiente Kubernetes local pode ser renderizado e aplicado com `kubectl`, mantendo separação entre base reutilizável e overlay local.
