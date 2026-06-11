@@ -126,6 +126,8 @@ O projeto também possui manifestos de Kubernetes para a Fase 9, organizados com
 
 - `k8s/base`
 - `k8s/overlays/local`
+- `k8s/overlays/production`
+- `k8s/cluster`
 
 Os manifestos contemplam:
 
@@ -138,3 +140,21 @@ Para ambiente local, o overlay `k8s/overlays/local` usa imagens locais:
 
 - `projetoindividual-app:latest`
 - `projetoindividual-nginx:latest`
+
+### CD e HTTPS
+
+A Fase 10 adiciona:
+
+- workflow [`CD`](/Users/felipecampelo/projetoindividual/.github/workflows/cd.yml) para publicar imagens no GHCR
+- overlay Kubernetes de produção com `Ingress`
+- `ClusterIssuer` do `cert-manager` para Let's Encrypt
+- redirecionamento HTTP para HTTPS no `Ingress` do Nginx
+
+Para o deploy contínuo funcionar no GitHub Actions, o repositório precisa ter:
+
+- secret `KUBE_CONFIG_B64`
+- secret `POSTGRES_PASSWORD`
+- variable `K8S_INGRESS_HOST`
+- variable `LETSENCRYPT_EMAIL`
+
+Inferência baseada nas documentações oficiais usadas: o `Ingress` com `cert-manager.io/cluster-issuer` permite ao `cert-manager` materializar o certificado TLS para o host configurado, e a publicação no GHCR usa autenticação do GitHub Actions com `GITHUB_TOKEN`.

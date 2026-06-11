@@ -2,12 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base
-  - app-secret.yaml
-  - postgres-secret.yaml
+  - ingress.yaml
 images:
   - name: ghcr.io/felipeacampelo/gces2026-projeto-individual-app
-    newName: projetoindividual-app
+    newName: ghcr.io/felipeacampelo/gces2026-projeto-individual-app
     newTag: latest
   - name: ghcr.io/felipeacampelo/gces2026-projeto-individual-nginx
-    newName: projetoindividual-nginx
+    newName: ghcr.io/felipeacampelo/gces2026-projeto-individual-nginx
     newTag: latest

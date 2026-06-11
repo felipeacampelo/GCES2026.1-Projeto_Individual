@@ -185,6 +185,8 @@ Os manifestos da Fase 9 ficam em:
 
 - `k8s/base`
 - `k8s/overlays/local`
+- `k8s/overlays/production`
+- `k8s/cluster`
 
 Para validar a renderização dos manifestos sem cluster ativo:
 
@@ -215,6 +217,38 @@ Para remover os recursos:
 ```bash
 kubectl delete -k k8s/overlays/local
 ```
+
+### Deploy contínuo com HTTPS
+
+Para a Fase 10, o repositório passa a ter um workflow de CD em [`CD`](/Users/felipecampelo/projetoindividual/.github/workflows/cd.yml) que:
+
+- publica as imagens `app` e `nginx` no GHCR
+- aplica o `ClusterIssuer` do `cert-manager`
+- cria os secrets necessários no namespace `mkjs`
+- aplica o overlay `k8s/overlays/production`
+- atualiza as imagens implantadas para a tag exata do commit
+
+Pré-requisitos no cluster:
+
+- controlador de Ingress Nginx instalado
+- `cert-manager` instalado
+- DNS do host público apontando para o IP do Ingress
+
+Configurações necessárias no GitHub:
+
+- secret `KUBE_CONFIG_B64`
+- secret `POSTGRES_PASSWORD`
+- variable `K8S_INGRESS_HOST`
+- variable `LETSENCRYPT_EMAIL`
+
+O `KUBE_CONFIG_B64` deve conter o kubeconfig do cluster em base64.
+
+Os manifestos de produção usam:
+
+- `k8s/cluster/cluster-issuer.yaml`
+- `k8s/overlays/production/ingress.yaml`
+
+O redirecionamento HTTP para HTTPS fica configurado no `Ingress` por meio das anotações do Nginx.
 
 ---
 

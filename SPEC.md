@@ -127,3 +127,10 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Pré-condição herdada das fases anteriores: imagens e topologia de produção já definidas.
 - Próximo artefato esperado: árvore `k8s/` com `Deployment`, `Service`, `PersistentVolumeClaim`, `ConfigMap`, `Secret` e `kustomization`.
 - Status após esta etapa: ambiente Kubernetes local pode ser renderizado e aplicado com `kubectl`, mantendo separação entre base reutilizável e overlay local.
+
+### Fase 10
+
+- Objetivo: automatizar publicação e deploy, adicionando HTTPS com `cert-manager` e exposição controlada via `Ingress`.
+- Pré-condição herdada das fases anteriores: imagens de produção e manifestos Kubernetes já existentes.
+- Próximo artefato esperado: workflow de CD, overlay de produção com `Ingress` TLS e manifesto de `ClusterIssuer`.
+- Status após esta etapa: imagens podem ser publicadas continuamente no GHCR e o deploy em cluster Kubernetes fica pronto para HTTPS com redirecionamento HTTP para HTTPS.

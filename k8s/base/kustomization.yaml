@@ -3,8 +3,6 @@ kind: Kustomization
 namespace: mkjs
 resources:
   - namespace.yaml
-  - app-secret.yaml
-  - postgres-secret.yaml
   - nginx-configmap.yaml
   - postgres-pvc.yaml
   - postgres-deployment.yaml
