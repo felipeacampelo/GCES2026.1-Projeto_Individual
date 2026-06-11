@@ -154,8 +154,22 @@ Para a demonstração local, o fluxo esperado é:
 - publicar imagens no GHCR pelo GitHub Actions
 - subir um cluster local com `ingress-nginx`
 - instalar `cert-manager`
-- apontar `mkjs.local` no `/etc/hosts` para o IP do cluster
+- apontar `mkjs.local` no `/etc/hosts` para o endereço local usado na demonstração
 - gerar imagens locais compatíveis com a arquitetura do cluster
 - aplicar `k8s/overlays/local-https`
 
 Inferência baseada nas documentações oficiais usadas: a publicação no GHCR usa autenticação do GitHub Actions com `GITHUB_TOKEN`, e o TLS local é materializado por `cert-manager` com um `Issuer` self-signed associado ao `Ingress`.
+
+Validação realizada no ambiente do Projeto:
+
+- `cert-manager` emitiu o certificado local `mkjs-local-tls`
+- o `Ingress` `mkjs-nginx` foi criado no namespace `mkjs`
+- a máquina local já tinha as portas `80` e `443` ocupadas
+- por isso, a verificação final do fluxo HTTP/HTTPS foi feita com `kubectl port-forward` do `ingress-nginx` em `8080:80` e `8443:443`
+- o host `mkjs.local` foi validado nos testes com header `Host` explícito
+
+Evidências da validação:
+
+- `curl -I -H 'Host: mkjs.local' http://127.0.0.1:8080` retornou `308 Permanent Redirect`
+- `curl -k -I -H 'Host: mkjs.local' https://127.0.0.1:8443` retornou `200`
+- `curl -k -H 'Host: mkjs.local' https://127.0.0.1:8443/api/game-sessions` retornou `{"enabled":true,"sessions":[]}`

@@ -252,10 +252,10 @@ kubectl wait --namespace cert-manager \
 minikube ip
 ```
 
-5. Adicione no `/etc/hosts` o host local:
+5. Para a demonstração validada neste Projeto, adicione no `/etc/hosts`:
 
 ```bash
-sudo sh -c 'echo "$(minikube ip) mkjs.local" >> /etc/hosts'
+sudo sh -c 'echo "127.0.0.1 mkjs.local" >> /etc/hosts'
 ```
 
 6. Gere as imagens dentro do runtime do Minikube para garantir compatibilidade de arquitetura:
@@ -280,13 +280,35 @@ kubectl get issuer -n mkjs
 kubectl get certificate -n mkjs
 ```
 
-9. Abra no navegador:
+9. Em uma máquina onde as portas `80` e `443` estejam livres, você pode expor o `ingress-nginx` nessas portas.
+
+No ambiente validado deste Projeto, as portas `80` e `443` já estavam em uso na máquina local. Por isso, a validação final foi feita com `port-forward` nas portas `8080` e `8443`:
+
+```bash
+kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 8080:80 8443:443
+```
+
+Em outro terminal, valide o redirecionamento e o HTTPS com o host esperado pelo `Ingress`:
+
+```bash
+curl -I --max-time 10 -H 'Host: mkjs.local' http://127.0.0.1:8080
+curl -k -I --max-time 10 -H 'Host: mkjs.local' https://127.0.0.1:8443
+curl -k --max-time 10 -H 'Host: mkjs.local' https://127.0.0.1:8443/api/game-sessions
+```
+
+Resultados esperados:
+
+- `308 Permanent Redirect` na URL HTTP
+- `200` na URL HTTPS
+- `{"enabled":true,"sessions":[]}` na API
+
+10. Abra no navegador, se preferir validar visualmente:
 
 - `https://mkjs.local`
 
 Como o certificado é self-signed, o navegador exibirá aviso de segurança. Isso é esperado para a demonstração local da Fase 10.
 
-10. Verifique o redirecionamento:
+11. Verifique o redirecionamento:
 
 - `http://mkjs.local` deve redirecionar para `https://mkjs.local`
 
