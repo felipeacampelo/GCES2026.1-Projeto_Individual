@@ -155,6 +155,7 @@ Para a demonstração local, o fluxo esperado é:
 - subir um cluster local com `ingress-nginx`
 - instalar `cert-manager`
 - apontar `mkjs.local` no `/etc/hosts` para o IP do cluster
+- gerar imagens locais compatíveis com a arquitetura do cluster
 - aplicar `k8s/overlays/local-https`
 
 Inferência baseada nas documentações oficiais usadas: a publicação no GHCR usa autenticação do GitHub Actions com `GITHUB_TOKEN`, e o TLS local é materializado por `cert-manager` com um `Issuer` self-signed associado ao `Ingress`.

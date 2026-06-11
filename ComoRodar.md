@@ -258,13 +258,20 @@ minikube ip
 sudo sh -c 'echo "$(minikube ip) mkjs.local" >> /etc/hosts'
 ```
 
-6. Aplique o overlay HTTPS local:
+6. Gere as imagens dentro do runtime do Minikube para garantir compatibilidade de arquitetura:
+
+```bash
+minikube image build -f Dockerfile.prod -t projetoindividual-app:latest .
+minikube image build -f Dockerfile.nginx -t projetoindividual-nginx:latest .
+```
+
+7. Aplique o overlay HTTPS local:
 
 ```bash
 kubectl apply -k k8s/overlays/local-https
 ```
 
-7. Verifique os recursos:
+8. Verifique os recursos:
 
 ```bash
 kubectl get pods -n mkjs
@@ -273,13 +280,13 @@ kubectl get issuer -n mkjs
 kubectl get certificate -n mkjs
 ```
 
-8. Abra no navegador:
+9. Abra no navegador:
 
 - `https://mkjs.local`
 
 Como o certificado é self-signed, o navegador exibirá aviso de segurança. Isso é esperado para a demonstração local da Fase 10.
 
-9. Verifique o redirecionamento:
+10. Verifique o redirecionamento:
 
 - `http://mkjs.local` deve redirecionar para `https://mkjs.local`
 

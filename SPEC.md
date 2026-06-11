@@ -133,4 +133,4 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 - Objetivo: automatizar a publicação de imagens e demonstrar o fluxo local de DNS e HTTPS no Kubernetes com `cert-manager`.
 - Pré-condição herdada das fases anteriores: imagens de produção e manifestos Kubernetes já existentes.
 - Próximo artefato esperado: workflow de CD para GHCR, overlay local com `Ingress` TLS, `Certificate` e `Issuer` self-signed.
-- Status após esta etapa: imagens são publicadas continuamente no GHCR e o ambiente local em Kubernetes pode expor `mkjs.local` com redirecionamento HTTP para HTTPS usando certificado self-signed.
+- Status após esta etapa: imagens são publicadas continuamente no GHCR e o ambiente local em Kubernetes pode expor `mkjs.local` com redirecionamento HTTP para HTTPS usando certificado self-signed e imagens locais compatíveis com a arquitetura do cluster.
