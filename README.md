@@ -126,8 +126,7 @@ O projeto também possui manifestos de Kubernetes para a Fase 9, organizados com
 
 - `k8s/base`
 - `k8s/overlays/local`
-- `k8s/overlays/production`
-- `k8s/cluster`
+- `k8s/overlays/local-https`
 
 Os manifestos contemplam:
 
@@ -146,15 +145,16 @@ Para ambiente local, o overlay `k8s/overlays/local` usa imagens locais:
 A Fase 10 adiciona:
 
 - workflow [`CD`](/Users/felipecampelo/projetoindividual/.github/workflows/cd.yml) para publicar imagens no GHCR
-- overlay Kubernetes de produção com `Ingress`
-- `ClusterIssuer` do `cert-manager` para Let's Encrypt
+- overlay Kubernetes local com `Ingress` HTTPS em `mkjs.local`
+- `Issuer` self-signed do `cert-manager`
 - redirecionamento HTTP para HTTPS no `Ingress` do Nginx
 
-Para o deploy contínuo funcionar no GitHub Actions, o repositório precisa ter:
+Para a demonstração local, o fluxo esperado é:
 
-- secret `KUBE_CONFIG_B64`
-- secret `POSTGRES_PASSWORD`
-- variable `K8S_INGRESS_HOST`
-- variable `LETSENCRYPT_EMAIL`
+- publicar imagens no GHCR pelo GitHub Actions
+- subir um cluster local com `ingress-nginx`
+- instalar `cert-manager`
+- apontar `mkjs.local` no `/etc/hosts` para o IP do cluster
+- aplicar `k8s/overlays/local-https`
 
-Inferência baseada nas documentações oficiais usadas: o `Ingress` com `cert-manager.io/cluster-issuer` permite ao `cert-manager` materializar o certificado TLS para o host configurado, e a publicação no GHCR usa autenticação do GitHub Actions com `GITHUB_TOKEN`.
+Inferência baseada nas documentações oficiais usadas: a publicação no GHCR usa autenticação do GitHub Actions com `GITHUB_TOKEN`, e o TLS local é materializado por `cert-manager` com um `Issuer` self-signed associado ao `Ingress`.

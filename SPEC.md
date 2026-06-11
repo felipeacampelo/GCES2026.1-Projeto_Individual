@@ -130,7 +130,7 @@ Colocar a Aplicação Base para executar em ambiente atual com backend e fronten
 
 ### Fase 10
 
-- Objetivo: automatizar publicação e deploy, adicionando HTTPS com `cert-manager` e exposição controlada via `Ingress`.
+- Objetivo: automatizar a publicação de imagens e demonstrar o fluxo local de DNS e HTTPS no Kubernetes com `cert-manager`.
 - Pré-condição herdada das fases anteriores: imagens de produção e manifestos Kubernetes já existentes.
-- Próximo artefato esperado: workflow de CD, overlay de produção com `Ingress` TLS e manifesto de `ClusterIssuer`.
-- Status após esta etapa: imagens podem ser publicadas continuamente no GHCR e o deploy em cluster Kubernetes fica pronto para HTTPS com redirecionamento HTTP para HTTPS.
+- Próximo artefato esperado: workflow de CD para GHCR, overlay local com `Ingress` TLS, `Certificate` e `Issuer` self-signed.
+- Status após esta etapa: imagens são publicadas continuamente no GHCR e o ambiente local em Kubernetes pode expor `mkjs.local` com redirecionamento HTTP para HTTPS usando certificado self-signed.

@@ -185,8 +185,7 @@ Os manifestos da Fase 9 ficam em:
 
 - `k8s/base`
 - `k8s/overlays/local`
-- `k8s/overlays/production`
-- `k8s/cluster`
+- `k8s/overlays/local-https`
 
 Para validar a renderização dos manifestos sem cluster ativo:
 
@@ -223,32 +222,72 @@ kubectl delete -k k8s/overlays/local
 Para a Fase 10, o repositório passa a ter um workflow de CD em [`CD`](/Users/felipecampelo/projetoindividual/.github/workflows/cd.yml) que:
 
 - publica as imagens `app` e `nginx` no GHCR
-- aplica o `ClusterIssuer` do `cert-manager`
-- cria os secrets necessários no namespace `mkjs`
-- aplica o overlay `k8s/overlays/production`
-- atualiza as imagens implantadas para a tag exata do commit
 
-Pré-requisitos no cluster:
+Para validar o fluxo local completo com DNS e HTTPS:
 
-- controlador de Ingress Nginx instalado
-- `cert-manager` instalado
-- DNS do host público apontando para o IP do Ingress
+1. Suba um cluster local. Exemplo com Minikube:
 
-Configurações necessárias no GitHub:
+```bash
+minikube start --driver=docker
+```
 
-- secret `KUBE_CONFIG_B64`
-- secret `POSTGRES_PASSWORD`
-- variable `K8S_INGRESS_HOST`
-- variable `LETSENCRYPT_EMAIL`
+2. Habilite o Ingress Nginx do Minikube:
 
-O `KUBE_CONFIG_B64` deve conter o kubeconfig do cluster em base64.
+```bash
+minikube addons enable ingress
+```
 
-Os manifestos de produção usam:
+3. Instale o `cert-manager`:
 
-- `k8s/cluster/cluster-issuer.yaml`
-- `k8s/overlays/production/ingress.yaml`
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.20.2/cert-manager.yaml
+kubectl wait --namespace cert-manager \
+  --for=condition=Available deployment \
+  --all --timeout=180s
+```
 
-O redirecionamento HTTP para HTTPS fica configurado no `Ingress` por meio das anotações do Nginx.
+4. Descubra o IP do cluster:
+
+```bash
+minikube ip
+```
+
+5. Adicione no `/etc/hosts` o host local:
+
+```bash
+sudo sh -c 'echo "$(minikube ip) mkjs.local" >> /etc/hosts'
+```
+
+6. Aplique o overlay HTTPS local:
+
+```bash
+kubectl apply -k k8s/overlays/local-https
+```
+
+7. Verifique os recursos:
+
+```bash
+kubectl get pods -n mkjs
+kubectl get ingress -n mkjs
+kubectl get issuer -n mkjs
+kubectl get certificate -n mkjs
+```
+
+8. Abra no navegador:
+
+- `https://mkjs.local`
+
+Como o certificado é self-signed, o navegador exibirá aviso de segurança. Isso é esperado para a demonstração local da Fase 10.
+
+9. Verifique o redirecionamento:
+
+- `http://mkjs.local` deve redirecionar para `https://mkjs.local`
+
+Os manifestos usados nesta etapa são:
+
+- `k8s/overlays/local-https/issuer.yaml`
+- `k8s/overlays/local-https/certificate.yaml`
+- `k8s/overlays/local-https/ingress.yaml`
 
 ---
 

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mkjs-local-tls
+spec:
+  secretName: mkjs-local-tls
+  commonName: mkjs.local
+  dnsNames:
+    - mkjs.local
+  issuerRef:
+    name: mkjs-local-selfsigned
+    kind: Issuer

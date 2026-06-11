@@ -2,6 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base
+  - app-secret.yaml
+  - postgres-secret.yaml
+  - issuer.yaml
+  - certificate.yaml
   - ingress.yaml
 images:
   - name: ghcr.io/felipeacampelo/gces2026-projeto-individual-app

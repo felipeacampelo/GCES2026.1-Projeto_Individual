@@ -3,13 +3,12 @@ kind: Ingress
 metadata:
   name: mkjs-nginx
   annotations:
-    cert-manager.io/cluster-issuer: ${CERT_MANAGER_CLUSTER_ISSUER}
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  ingressClassName: ${INGRESS_CLASS_NAME}
+  ingressClassName: nginx
   rules:
-    - host: ${INGRESS_HOST}
+    - host: mkjs.local
       http:
         paths:
           - path: /
@@ -21,5 +20,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - ${INGRESS_HOST}
-      secretName: mkjs-ingress-tls
+        - mkjs.local
+      secretName: mkjs-local-tls
