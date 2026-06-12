@@ -36,6 +36,19 @@ Boa sorte!
 
 O projeto já possui uma **fundação transversal** concluída para executar em ambiente Node.js atual e um **Dockerfile de desenvolvimento** para a Fase 1.
 
+### Mapa de Evidências por Fase
+
+- Fase 1: [`Dockerfile`](/Users/felipecampelo/projetoindividual/Dockerfile) com ambiente de desenvolvimento e hot-reload
+- Fase 2: [`docker-compose.yml`](/Users/felipecampelo/projetoindividual/docker-compose.yml) e persistência simples no backend em [`server/db.js`](/Users/felipecampelo/projetoindividual/server/db.js)
+- Fase 3: workflow [`CI`](/Users/felipecampelo/projetoindividual/.github/workflows/ci.yml)
+- Fase 4: testes em [`server/test`](/Users/felipecampelo/projetoindividual/server/test) e histórico de commits de quebra/correção no Git
+- Fase 5: fuzzing em [`server/test/fuzz.test.js`](/Users/felipecampelo/projetoindividual/server/test/fuzz.test.js)
+- Fase 6: workflow [`CodeQL`](/Users/felipecampelo/projetoindividual/.github/workflows/codeql.yml) e script `npm run sca`
+- Fase 7: workflow [`SonarCloud`](/Users/felipecampelo/projetoindividual/.github/workflows/sonarcloud.yml) e [`sonar-project.properties`](/Users/felipecampelo/projetoindividual/sonar-project.properties)
+- Fase 8: [`Dockerfile.prod`](/Users/felipecampelo/projetoindividual/Dockerfile.prod), [`Dockerfile.nginx`](/Users/felipecampelo/projetoindividual/Dockerfile.nginx) e [`docker-compose.prod.yml`](/Users/felipecampelo/projetoindividual/docker-compose.prod.yml)
+- Fase 9: manifestos em [`k8s/base`](/Users/felipecampelo/projetoindividual/k8s/base/kustomization.yaml) e [`k8s/overlays/local`](/Users/felipecampelo/projetoindividual/k8s/overlays/local/kustomization.yaml)
+- Fase 10: workflow [`CD`](/Users/felipecampelo/projetoindividual/.github/workflows/cd.yml) e overlay HTTPS local em [`k8s/overlays/local-https`](/Users/felipecampelo/projetoindividual/k8s/overlays/local-https/kustomization.yaml)
+
 ### Ambiente de Desenvolvimento
 
 Execução local:

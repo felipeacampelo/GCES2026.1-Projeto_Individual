@@ -252,10 +252,28 @@ kubectl wait --namespace cert-manager \
 minikube ip
 ```
 
-5. Para a demonstração validada neste Projeto, adicione no `/etc/hosts`:
+5. Para a demonstração validada neste Projeto, edite manualmente o arquivo `/etc/hosts` e adicione exatamente esta linha:
 
 ```bash
-sudo sh -c 'echo "127.0.0.1 mkjs.local" >> /etc/hosts'
+127.0.0.1 mkjs.local
+```
+
+Exemplo de edição:
+
+```bash
+sudo nano /etc/hosts
+```
+
+Depois confirme:
+
+```bash
+grep mkjs.local /etc/hosts
+```
+
+A saída deve conter apenas:
+
+```bash
+127.0.0.1 mkjs.local
 ```
 
 6. Gere as imagens dentro do runtime do Minikube para garantir compatibilidade de arquitetura:
